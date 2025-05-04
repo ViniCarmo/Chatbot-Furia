@@ -1,37 +1,59 @@
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 import google.generativeai as genai
+from dotenv import load_dotenv
+import os
 
-# Configurar a API
-API_KEY = "AIzaSyD0pMM9Q_QtKO9nnN47vi10VSfncB_rZmo"
-genai.configure(api_key=API_KEY)
+load_dotenv(dotenv_path="key.env")
 
-# Criar modelo
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-2.0-flash")
 
-# Prompt base que define o comportamento do bot
 prompt_base = (
     "Você é um especialista no time de CS:GO da FURIA Esports. "
     "Responda apenas perguntas relacionadas à equipe, jogadores, campeonatos ou estatísticas da FURIA no CS:GO. "
     "Se a pergunta não for sobre isso, diga educadamente que só pode falar sobre o time de CS:GO da FURIA.\n"
 )
 
-# Histórico da conversa
-historico_conversa = [{"author": "user", "text": prompt_base}]
+historico_usuarios = {}
 
-def enviar_mensagem(mensagem):
-    historico_conversa.append({"author": "user", "text": mensagem})
+def gerar_resposta(user_id, pergunta):
+    """ Mantém o histórico da conversa para garantir fluxo contínuo """
+    
+    if user_id not in historico_usuarios:
+        historico_usuarios[user_id] = [prompt_base]
+    
+    historico_usuarios[user_id].append(f"Usuário: {pergunta}")
 
-    # Junta todo o histórico para manter contexto
-    contexto = "\n".join([f'{msg["author"]}: {msg["text"]}' for msg in historico_conversa])
-    response = model.generate_content(contexto)
+    contexto = "\n".join(historico_usuarios[user_id])
 
-    historico_conversa.append({"author": "chatbot", "text": response.text.strip()})
+    resposta = model.generate_content(contexto).text.strip()
 
-    return response.text.strip()
+    historico_usuarios[user_id].append(f"Bot: {resposta}")
 
-# Loop de interação
-while True:
-    texto = input("Você: ")
-    if texto.lower() == "sair":
-        break
-    resposta = enviar_mensagem(texto)
-    print("Chatbot:", resposta)
+    return resposta
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """ Mensagem de boas-vindas """
+    user_id = update.message.from_user.id
+    historico_usuarios[user_id] = [prompt_base]  # Inicia um novo histórico para o usuário
+    await update.message.reply_text("Olá! Sou o bot da FURIA CS:GO. Pergunte algo sobre o time!")
+
+async def responder(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """ Recebe uma mensagem do usuário e responde mantendo o contexto """
+    user_id = update.message.from_user.id
+    pergunta = update.message.text
+    resposta = gerar_resposta(user_id, pergunta)
+    await update.message.reply_text(resposta)
+
+if __name__ == '__main__':
+    app = ApplicationBuilder().token(TELEGRAM_BOT_TOKEN).build()
+
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, responder))
+
+    print("Bot rodando...")
+    app.run_polling()

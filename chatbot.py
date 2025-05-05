@@ -21,7 +21,6 @@ prompt_base = (
 historico_usuarios = {}
 
 def gerar_resposta(user_id, pergunta):
-    """ Mantém o histórico da conversa para garantir fluxo contínuo """
     
     if user_id not in historico_usuarios:
         historico_usuarios[user_id] = [prompt_base]
@@ -37,13 +36,11 @@ def gerar_resposta(user_id, pergunta):
     return resposta
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """ Mensagem de boas-vindas """
     user_id = update.message.from_user.id
     historico_usuarios[user_id] = [prompt_base]  # Inicia um novo histórico para o usuário
     await update.message.reply_text("Olá! Sou o bot da FURIA CS:GO. Pergunte algo sobre o time!")
 
 async def responder(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """ Recebe uma mensagem do usuário e responde mantendo o contexto """
     user_id = update.message.from_user.id
     pergunta = update.message.text
     resposta = gerar_resposta(user_id, pergunta)

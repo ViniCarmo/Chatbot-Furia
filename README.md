@@ -1,6 +1,9 @@
 
 # FURIA CS Chatbot
 
+Infelizmente o video que mandei no Forms ficou apenas na tela do codigo, publiquei um video certo no Youtube: https://youtu.be/ZleB09e32pg.
+Ficaria muito grato se dessem uma olhada.
+
 Um chatbot inteligente para os fãs de CS da FURIA Esports. Ele responde perguntas sobre jogadores, partidas, estatísticas, e muito mais, utilizando uma LLM com a integração da API do Gemini.
 
 ### 🚀 Funcionalidades

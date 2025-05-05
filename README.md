@@ -1,14 +1,14 @@
 
-# FURIA CS:GO Chatbot
+# FURIA CS Chatbot
 
-Um chatbot inteligente para os fãs de CS:GO da FURIA Esports. Ele responde perguntas sobre jogadores, partidas, estatísticas, e muito mais, utilizando uma LLM com a integração da API do Gemini.
+Um chatbot inteligente para os fãs de CS da FURIA Esports. Ele responde perguntas sobre jogadores, partidas, estatísticas, e muito mais, utilizando uma LLM com a integração da API do Gemini.
 
 ### 🚀 Funcionalidades
-- **Respostas rápidas e precisas**: O bot responde a perguntas sobre o time de CS:GO da FURIA, suas partidas e jogadores, com base em dados atualizados.
+- **Respostas rápidas e precisas**: O bot responde a perguntas sobre o time de CS da FURIA, suas partidas e jogadores, com base em dados atualizados.
 - **Integração com o Gemini**: O chatbot usa a API do Gemini para fornecer respostas baseadas em inteligência artificial, com um modelo generativo para criar conversas mais fluídas.
 - **Interatividade**: Você pode interagir com o bot, perguntar sobre estatísticas, eventos e até a história da FURIA no CS:GO.
 - **Memória por usuário**: Cada interação é registrada, permitindo um fluxo de conversa contínuo e personalizado.
-- **Treinado para responder apenas sobre a FURIA**: O bot é especializado em responder exclusivamente sobre o time FURIA no CS:GO, suas estatísticas, eventos e outros tópicos relacionados.
+- **Treinado para responder apenas sobre a FURIA**: O bot é especializado em responder exclusivamente sobre o time FURIA no CS, suas estatísticas, eventos e outros tópicos relacionados.
 
 ### 🧠 Tecnologias Utilizadas
 - **Backend**: Python com `python-telegram-bot` para integração com o Telegram.

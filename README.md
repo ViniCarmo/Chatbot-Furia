@@ -29,8 +29,8 @@ furia-chatbot/
 
 1. **Clone o repositório**:
    ```
-   git clone https://github.com/seu-usuario/furia-chatbot.git
-   cd furia-chatbot
+   git clone https://github.com/ViniCarmo/Chatbot-Furia.git
+   cd Chatbot-Furia
    ```
 
 2. **Configuração do ambiente**:

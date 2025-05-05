@@ -60,7 +60,7 @@ furia-chatbot/
      ```
 
 5. **Interaja com o bot no Telegram**:
-   - Abra o Telegram e procure pelo seu bot, iniciando a conversa com `/start`.
+   - Abra o Telegram e procure pelo seu bot (ou t.me/FuriaCSGOHelperBot), iniciando a conversa com `/start`.
 
 ### 🧩 Integração com a API do Gemini
 A API do Gemini é utilizada para fornecer respostas inteligentes e dinâmicas para os usuários. Com ela, o bot pode gerar respostas detalhadas sobre as estatísticas da FURIA, eventos passados e outros dados em tempo real, com base na conversa.
